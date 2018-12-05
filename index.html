@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>The Word Guess Game</title>
+    <link rel="stylesheet" href="C:\Users\rxfit\Word-Guess-Game\assets\css\style.css">
+   
+</head>
+
+<body>
+  
+        <header>
+            <h1>The Word Guess Game</h1>
+        </header>
+
+        <div class="instructions">
+            <h3> Guess what word I'm thinking of</h3>
+        </div>
+        
+            Word: <div id="word"></div>
+            <br><br>
+            Wins: <span id="wins">0</span>
+            <br>
+            Losses: <span id="losses">0</span>
+            <br>
+            Letters Guessed so Far:<span id="letters-guessed-so-far"></span>
+       
+
+        <script type="text/javascript">
+            // Initialize scoreboard
+            var wins = 0;
+            var losses = 0;
+
+
+            alert("Press any key to start!")
+            alert("You have 10 guesses. Choose wisely!")
+            //Computer word choices----->
+            var wordArray = [
+                "pistol",
+                "smuggle",
+                "colombia",
+                "miami",
+                "scarface",
+                "cocaine",
+                "marijuana"
+            ]
+
+            var userGuesses = []
+            //Randomly chooses a choice from the options array. This is the Computer's guess.
+            var secretWord = wordArray[Math.floor(Math.random() * wordArray.length)];
+            updateWordOnPage();
+
+            // This function is run whenever the user presses a key.
+            document.onkeyup = function (event) {
+
+                // Determines which key was pressed.
+                var userGuess = event.key;
+                userGuesses.push(userGuess);
+
+                // Check if the user's guess matches any of the letters
+                // If not, lose a guess.
+                var loseAGuess = true;
+                for (let i = 0; i < secretWord.length; i++) {
+                    var letter = secretWord[i];
+
+                    // Check if letter is what the user typed.
+                    if (letter == userGuess) {
+                        // Reset the "lose a guess" flag
+                        loseAGuess = false;
+                    }
+                }
+
+                // Check if user won/lost/tied, update the internal scoreboard
+                if (userGuess == wordArray) {
+                    // Win, update scores
+                    wins++;
+                } else {
+                    // Loss, update scores
+                    losses++;
+                }
+
+                // Update the DOM based on the scoreboard
+                updateWordOnPage();
+                updateScoreboard();
+                updateUserGuessesOnPage();
+            };
+            //reference for guessed letters
+            function updateWordOnPage() {
+                var wordString = '';
+                for (var i = 0; i < secretWord.length; ++i) {
+                    var letter = secretWord[i];
+                    if (userGuesses.includes(letter)) {
+                        wordString += letter + ' ';
+                    } else {
+                        wordString += '_ ';
+                    }
+                }
+
+                var wordDiv = document.getElementById('word');
+                wordDiv.textContent = wordString;
+            }
+
+            function updateScoreboard() {
+                var winsDiv = document.getElementById('wins');
+                var lossesDiv = document.getElementById('losses');
+
+                winsDiv.textContent = wins;
+                lossesDiv.textContent = losses;
+            }
+
+            function updateUserGuessesOnPage() {
+                // Writes out the user's guesses to the guess div.
+                var wordString = '';
+                for (var i = 0; i < userGuesses.length; ++i) {
+                    var letter = userGuesses[i];
+                    wordString += letter + ', ';
+                }
+                wordString = wordString.slice(0, -2);
+
+                var userGuessesElement = document.getElementById('letters-guessed-so-far');
+                userGuessesElement.textContent = wordString;
+            }
+        </script>
+   
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+body {
+    background-image: url(http://orig03.deviantart.net/fab2/f/2009/245/e/9/moon_rider_by_3njin.jpg);
+    resize: all;
+    display: flex;
+    resize: all;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    background-size: 100vw 100vh;
+    margin: 20px;
+}
+
