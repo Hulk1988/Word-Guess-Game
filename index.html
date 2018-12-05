@@ -38,18 +38,21 @@
             alert("You have 10 guesses. Choose wisely!")
             //Computer word choices----->
             var wordArray = [
-                "pistol",
-                "smuggle",
-                "colombia",
-                "miami",
-                "scarface",
-                "cocaine",
-                "marijuana"
+                "neon",
+                "future",
+                "retro",
+                "metropolitan",
+                "science",
+                "wasteland",
+                "nuclear",
+                "fallout",
+                "apocalypse",
             ]
-
+            var inputArray = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
             var userGuesses = []
             //Randomly chooses a choice from the options array. This is the Computer's guess.
-            var secretWord = wordArray[Math.floor(Math.random() * wordArray.length)];
+            var secretWord = '';
+            pickNewWord()
             updateWordOnPage();
 
             // This function is run whenever the user presses a key.
@@ -81,11 +84,25 @@
                     losses++;
                 }
 
+                if (losses == 10) {
+                    startNewRound();
+                }
                 // Update the DOM based on the scoreboard
                 updateWordOnPage();
                 updateScoreboard();
                 updateUserGuessesOnPage();
+                
             };
+            function startNewRound() {
+                wins = 0;
+                losses = 0;
+                userGuesses = []
+                pickNewWord()
+                }
+            
+            function pickNewWord() {
+               secretWord = wordArray[Math.floor(Math.random() * wordArray.length)];
+            }
             //reference for guessed letters
             function updateWordOnPage() {
                 var wordString = '';
@@ -97,7 +114,7 @@
                         wordString += '_ ';
                     }
                 }
-
+                
                 var wordDiv = document.getElementById('word');
                 wordDiv.textContent = wordString;
             }
